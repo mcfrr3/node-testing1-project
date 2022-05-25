@@ -121,10 +121,14 @@ class Car {
    * @param {number} tankSize - capacity of the gas tank in gallons
    * @param {number} mpg - miles the car can drive per gallon of gas
    */
+
   constructor(name, tankSize, mpg) {
-    this.odometer = 0 // car initilizes with zero miles
-    this.tank = tankSize // car initiazes full of gas
+    this.name = name;
+    this.odometer = 0; // car initilizes with zero miles
+    this.tank = tankSize; // car initiazes full of gas
     // ✨ initialize whatever other properties are needed
+    this.mpg = mpg;
+    this.tankSize = tankSize;
   }
 
   /**
@@ -142,6 +146,14 @@ class Car {
    */
   drive(distance) {
     // ✨ implement
+    const possibleDistance = this.tank * this.mpg;
+    if (possibleDistance >= distance) {
+      this.tank -= distance / this.mpg
+      return this.odometer += distance;
+    } else {
+      this.tank = 0;
+      return this.odometer += possibleDistance;
+    }
   }
 
   /**
@@ -157,6 +169,12 @@ class Car {
    */
   refuel(gallons) {
     // ✨ implement
+    if (gallons + this.tank > this.tankSize) {
+      this.tank = this.tankSize;
+    } else {
+      this.tank += gallons;
+    }
+    return this.mpg * this.tank;
   }
 }
 
